@@ -39,8 +39,19 @@ http {
     }
   <% end %>
 
+  <% if ENV["REDIRECT_FROM_DOMAIN"] && ENV["REDIRECT_TO_DOMAIN"] %>
+    server {
+      listen <%= ENV["PORT"] %>;
+      server_name <%= ENV["REDIRECT_FROM_DOMAIN"] %>;
+      return 301 http://<%= ENV["REDIRECT_TO_DOMAIN"] %>$request_uri;
+    }
+  <% end %>
+
   server {
-    <% if ENV["NAKED_DOMAIN"] && !ENV["NAKED_DOMAIN"].empty? %>
+
+    <% if ENV["REDIRECT_FROM_DOMAIN"] && ENV["REDIRECT_TO_DOMAIN"] %>
+      server_name <%= ENV["REDIRECT_TO_DOMAIN"] %>;
+    <% elsif ENV["NAKED_DOMAIN"] && !ENV["NAKED_DOMAIN"].empty? %>
       server_name www.<%= ENV["NAKED_DOMAIN"] %>;
     <% else %>
       server_name _;
