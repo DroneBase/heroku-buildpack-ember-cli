@@ -50,7 +50,7 @@ http {
   server {
 
     <% if ENV["REDIRECT_FROM_DOMAIN"] && ENV["REDIRECT_TO_DOMAIN"] %>
-      server_name <%= ENV["REDIRECT_TO_DOMAIN"] %>;
+      server_name <%= ENV["REDIRECT_TO_DOMAIN"] %> <%= ENV["CDN_ORIGIN"] %>;
     <% elsif ENV["NAKED_DOMAIN"] && !ENV["NAKED_DOMAIN"].empty? %>
       server_name www.<%= ENV["NAKED_DOMAIN"] %>;
     <% else %>
