@@ -43,7 +43,7 @@ http {
     server {
       listen <%= ENV["PORT"] %>;
       server_name <%= ENV["REDIRECT_FROM_DOMAIN"] %>;
-      return 301 http://<%= ENV["REDIRECT_TO_DOMAIN"] %>$request_uri;
+      return 301 https://<%= ENV["REDIRECT_TO_DOMAIN"] %>$request_uri;
     }
   <% end %>
 
